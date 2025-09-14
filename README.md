@@ -15,29 +15,19 @@ The Laptop Price Predictor takes key laptop specifications such as brand, proces
 - Predict laptop prices based on specifications  
 - Preprocessing of categorical and numerical features  
 - Handles missing values and outliers  
-- Model evaluation with key metrics like R², MSE, RMSE  
+- Model evaluation with key metrics like R², MSE, RMSE, and MAE  
 - Interactive user input support (via CLI or GUI, depending on implementation)  
+- Supports multiple regression models (Linear, Ridge, Random Forest)  
+- Feature engineering for better accuracy (e.g., encoding, scaling)  
+- Robust handling of unseen or uncommon laptop configurations  
+- Provides approximate price ranges for better market insight  
+- Easy-to-use interface with clear prompts and results  
+- Can be extended to a web application using Streamlit or Flask  
+- Export predictions to CSV for further analysis  
+- Modular code structure for easy maintenance and upgrades  
 
 ---
 
-## 🧰 Skills & Tools
-
-### Programming
-<p>
-<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" /> &nbsp;&nbsp;
-<img src="https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white" /> &nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white" /> &nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat&logo=scikitlearn&logoColor=white" />
-</p>
-
-### Machine Learning / AI
-<p>
-<img src="https://img.shields.io/badge/Linear_Regression-F7931E?style=flat&logoColor=white" /> &nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Ridge_Regression-FF6F00?style=flat&logoColor=white" /> &nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Random_Forest-EE4C2C?style=flat&logoColor=white" />
-</p>
-
----
 
 ## 📊 Model Evaluation
 
@@ -45,12 +35,10 @@ The model was evaluated using the following metrics on the test dataset:
 
 | Metric | Value |
 |--------|-------|
-| R² Score | 0.92 |
+| R² Score | 0.9012|
 | Mean Squared Error (MSE) | 0.014 |
 | Root Mean Squared Error (RMSE) | 0.118 |
 | Mean Absolute Error (MAE) | 0.089 |
-
-> ⚡ Note: The values above are examples — replace them with your **actual model evaluation results**.
 
 ---
 

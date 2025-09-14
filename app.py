@@ -1,93 +1,48 @@
 import streamlit as st
 import pickle
+import gdown
+import os
 import numpy as np
 import math
+from sklearn.exceptions import NotFittedError
 
-# Load the fitted pipeline
-with open('pipe_fitted.pkl', 'rb') as f:
-    pipe = pickle.load(f)
+# 🔹 Google Drive file ID (replace with your own)
+file_id = "1cKLDI_j4P8N6T9eWZHLq1iWbaf8VW_Ha"
+url = f"https://drive.google.com/uc?id={file_id}"
+model_path = "pipe_fitted.pkl"
 
-# Load the DataFrame (for dropdowns/options)
-with open('df.pkl', 'rb') as f:
-    df = pickle.load(f)
 
-# Custom CSS for better UI
-st.markdown("""
-    <style>
-    .main {
-        background-color: #f0f8ff;
-        padding: 20px;
-        border-radius: 10px;
-    }
-    .stButton>button {
-        background-color: #4B8BBE;
-        color: white;
-        height: 3em;
-        width: 100%;
-        font-size: 18px;
-        border-radius: 10px;
-    }
-    .stSlider>div>div>div>div>input {
-        color: #4B8BBE;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# 🔹 Download model if not present
+if not os.path.exists(model_path):
+    st.write("📥 Downloading model from Google Drive...")
+    gdown.download(url, model_path, quiet=False)
 
-# App Title
-st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>💻 Laptop Price Predictor</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Predict the price of a laptop based on its specifications.</p>", unsafe_allow_html=True)
-st.write("---")
+# 🔹 Load model
+try:
+    with open(model_path, "rb") as f:
+        pipe = pickle.load(f)
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    st.stop()
 
-# Layout with two columns
-col1, col2 = st.columns(2)
+# 🔹 Streamlit App
+st.title("💻 Laptop Price Predictor")
 
-with col1:
-    st.subheader("🖥 Laptop Specifications")
-    company = st.selectbox("Brand", df['Company'].unique())
-    laptop_type = st.selectbox("Type", df['TypeName'].unique())
-    ram = st.selectbox("RAM (GB)", [2, 4, 6, 8, 12, 16, 24, 32, 64])
-    weight = st.number_input("Weight (Kg)", min_value=0.5, max_value=5.0, value=1.5, step=0.1)
-    touchscreen = st.selectbox("Touchscreen", ["No", "Yes"])
-    ips = st.selectbox("IPS", ["No", "Yes"])
+# Example inputs (modify based on your training features)
+ram = st.number_input("Enter RAM (in GB):", min_value=2, max_value=128, step=2)
+weight = st.number_input("Enter Weight (in Kg):", min_value=0.5, max_value=5.0, step=0.1)
 
-with col2:
-    st.subheader("📺 Display & Hardware")
-    screen_size = st.slider("Screen Size (inches)", 10.0, 18.0, 13.0, 0.1)
-    resolution = st.selectbox(
-        "Screen Resolution",
-        ["1920x1080", "1366x768", "1600x900", "3840x2160", "3200x1800",
-         "2880x1800", "2560x1600", "2560x1440", "2304x1440"]
-    )
-    cpu = st.selectbox("CPU", df['Cpu brand'].unique())
-    hdd = st.selectbox("HDD (GB)", [0, 128, 256, 512, 1024, 2048])
-    ssd = st.selectbox("SSD (GB)", [0, 8, 128, 256, 512, 1024])
-    gpu = st.selectbox("GPU", df['Gpu brand'].unique())
-    os = st.selectbox("OS", df['os'].unique())
-
-st.write("---")
-
-# Predict Button
-if st.button("Predict Price 💰"):
-    touchscreen_val = 1 if touchscreen == "Yes" else 0
-    ips_val = 1 if ips == "Yes" else 0
-
-    # Calculate PPI
-    X_res, Y_res = map(int, resolution.split("x"))
-    ppi = ((X_res ** 2 + Y_res ** 2) ** 0.5) / screen_size
-
-    # Prepare query
-    query = np.array([company, laptop_type, ram, weight,
-                      touchscreen_val, ips_val, ppi,
-                      cpu, hdd, ssd, gpu, os]).reshape(1, 12)
-
+if st.button("Predict"):
     try:
+        query = np.array([[ram, weight]])  # adapt to your model features
         pred_log = pipe.predict(query)[0]  # model predicts log(price)
         pred_price = math.exp(pred_log)
 
         # Clip predictions to realistic range
         pred_price = max(min(pred_price, 250000), 20000)
 
-        st.markdown(f"<h2 style='text-align: center; color: green;'>💰 Estimated Price: ₹ {pred_price:,.0f}</h2>", unsafe_allow_html=True)
-
+        st.success(f"💰 Estimated Laptop Price: ₹{pred_price:,.0f}")
+    except NotFittedError:
+        st.error("Model is not fitted yet!")
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"Prediction failed: {e}")

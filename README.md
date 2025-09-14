@@ -9,7 +9,18 @@ A Python-based project that predicts the price of a laptop given its specificati
 The Laptop Price Predictor takes key laptop specifications such as brand, processor, RAM, storage, GPU, and OS to predict the approximate market price. It is designed for **buyers, sellers, and tech enthusiasts** who want to make informed decisions.
 
 ---
+## 📂 Dataset
 
+The project uses a **laptop specifications dataset** to train the model. It contains features like brand, processor, RAM, storage, GPU, OS, and price.  
+
+- **Dataset Link:** [Kaggle Laptop Price Dataset](https://www.kaggle.com/datasets/ganeshmohane/laptop-datacsv)  
+- **Format:** CSV  
+- **Size:** ~182 kb  
+- **Columns:** Brand, Processor, RAM, Storage, GPU, OS, Screen Size, Price  
+
+> ⚡ Note: Preprocessing (handling missing values, encoding categorical features) is required before training.
+
+---
 ## ⚙️ Features
 
 - Predict laptop prices based on specifications  
@@ -18,10 +29,8 @@ The Laptop Price Predictor takes key laptop specifications such as brand, proces
 - Model evaluation with key metrics like R², MSE, RMSE, and MAE  
 - Interactive user input support (via CLI or GUI, depending on implementation)  
 - Supports multiple regression models (Linear, Ridge, Random Forest)  
-- Feature engineering for better accuracy (e.g., encoding, scaling)  
-- Robust handling of unseen or uncommon laptop configurations  
-- Provides approximate price ranges for better market insight  
-- Easy-to-use interface with clear prompts and results  
+- Feature engineering for better accuracy (e.g., encoding, scaling)   
+- Provides approximate price ranges for better market insight    
 - Can be extended to a web application using Streamlit or Flask  
 - Export predictions to CSV for further analysis  
 - Modular code structure for easy maintenance and upgrades  

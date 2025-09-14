@@ -16,27 +16,25 @@ The project uses a **laptop specifications dataset** to train the model. It cont
 - **Dataset Link:** [Kaggle Laptop Price Dataset](https://www.kaggle.com/datasets/ganeshmohane/laptop-datacsv)  
 - **Format:** CSV  
 - **Size:** ~182 kb  
-- **Columns:** Brand, Processor, RAM, Storage, GPU, OS, Screen Size, Price  
-
-> ⚡ Note: Preprocessing (handling missing values, encoding categorical features) is required before training.
-
+- **Columns:** Brand, Processor, RAM, Storage, GPU, OS, Screen Size, Price
 ---
 ## ⚙️ Features
 
-- Predict laptop prices based on specifications  
-- Preprocessing of categorical and numerical features  
-- Handles missing values and outliers  
-- Model evaluation with key metrics like R², MSE, RMSE, and MAE  
-- Interactive user input support (via CLI or GUI, depending on implementation)  
+- Predicts laptop prices from specifications  
+- Handles categorical/numerical preprocessing, missing values, and outliers  
 - Supports multiple regression models (Linear, Ridge, Random Forest)  
-- Feature engineering for better accuracy (e.g., encoding, scaling)   
-- Provides approximate price ranges for better market insight    
-- Can be extended to a web application using Streamlit or Flask  
-- Export predictions to CSV for further analysis  
-- Modular code structure for easy maintenance and upgrades  
-
+- Includes feature engineering (encoding, scaling) for better accuracy  
+- Provides approximate price ranges and CSV export  
+- Can be extended to a web app (Streamlit/Flask)  
+- Interactive user input via CLI or GUI  
 ---
+## 🛠️ Technologies Used
 
+- **Python**  
+- **Pandas**, **NumPy**  
+- **Matplotlib**, **Seaborn**  
+- **Scikit-learn**
+---
 
 ## 📊 Model Evaluation
 
@@ -50,11 +48,18 @@ The model was evaluated using the following metrics on the test dataset:
 | Mean Absolute Error (MAE) | 0.089 |
 
 ---
+## 📊 Results  
 
-## 🛠️ Installation
+- Achieved **~90% R² Score** with Random Forest Regressor.  
+- Feature scaling and encoding improved model performance.  
+- **RAM size, Processor type, and GPU presence** were among the most influential features.  
+- Predicted prices were on average **±10% close to actual prices**.
+---
+## ✍️ Author
 
-1. Clone the repository:
+**Ashutosh Yadav**  
+B.Tech CSE (AI) | Institute of Engineering & Technology, Lucknow  
 
-```bash
-git clone <repo-url>
-cd laptop_price_predictor
+📧 [ashutosh.iet26.student@gmail.com](mailto:ashutosh.iet26.student@gmail.com)  
+🔗 [LinkedIn](https://www.linkedin.com/in/ashutosh-yadav-93b303263/)
+
